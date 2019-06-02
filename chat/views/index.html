@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login page</title>
+</head>
+<body>
+    <form action="/" method="POST">
+        <p>Username : <input style="width:200px; height:20px;" type="text" name="name" placeholder="닉네임을 입력하세여" required></p>
+        <p>Password : <input style="width:200px; height:20px;" type="password" name="pwd" placeholder="비번" required></p>
+        <input style="width:100px; height:20px;" type="submit" value="Login">
+    </form>
+    <form action="/register" method="GET">
+        <input style="width:100px; height:20px;" type="submit" value="Register">
+    </form>
+    <% if(alert == true) { %>
+    <script text="type/javascript">
+        alert('Non exist username or Wrong password')
+    </script>
+    <% } %>
+</body>
+</html>
