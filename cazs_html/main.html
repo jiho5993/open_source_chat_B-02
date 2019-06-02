@@ -11,7 +11,7 @@
         }
         body {
             position: relative;
-            background-color: #E0ECF8;
+            background-color: rgb(36, 36, 36);
         }
         
         li{
@@ -151,14 +151,42 @@
             position: fixed;
             left: 50%;
             box-sizing: content-box;
-            width: 49%;
-            min-height: 800px;
-            max-height: auto;
+            width: 49.5%;
+            height: 86.2%;
             margin: 70px 0px 0px 0px;
             border: 3px;
             border-style: solid;
             background-color: rgb(62, 64, 66);
         }
+
+        #wrap4 > aside{
+            position: relative;
+            box-sizing: content-box;
+            width: 100%;
+            height: auto;
+        }
+
+        .profile{
+            position: relative;
+            text-align: center;
+            font-size: 30px;
+
+        }
+        /* Signiture */
+
+        footer{
+
+            position: fixed;
+            z-index: 2000;
+            top: 96%;
+            display: block;
+            box-sizing: content-box;
+            width: 100%;
+            height: 4%;
+            background-color: rgb(182, 193, 204);
+            box-shadow: 0 1px 10px #0000007c;
+            font-size: 15px;
+            }
     </style>
 
 </head>
@@ -195,9 +223,11 @@
                 
             </ul>
         </div>
+        
     <div id="wrap4">
-
+        <aside><p class="profile">this Aside is for profile</p></aside>
     </div>
+    <footer>@Made by MonoRaiL</footer>
     
     
 </body>
