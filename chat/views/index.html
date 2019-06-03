@@ -45,6 +45,68 @@
             box-shadow: 0 2px 10px #0000007c;
 
         }
+        .usr_name{
+            margin: 0px auto;
+            padding: 50px 0px 0px 0px;
+
+        }
+        .usr_name > input {
+            display: block;
+            margin: 0px auto;
+            width: 200px;
+            height: 30px;
+            border-width: 0px 0px 3px 0px;
+            border-color: rgb(148, 26, 26);
+            border-style: solid;
+            box-shadow: 0 2px 5px #0000007c inset;
+
+        }
+
+        .usr_name > input:focus{
+            outline: -webkit-focus-ring-color auto 2px;
+            outline-color: -webkit-focus-ring-color;
+            outline-style: auto;
+            outline-width: 2px;
+        }
+        
+        .pwd{
+            margin: 0px auto;
+            padding: 20px 0px 0px 0px;
+
+        }
+        .pwd > input {
+            display: block;
+            margin: 10px auto;
+            width: 200px;
+            height: 30px;
+            border-width: 0px 0px 3px 0px;
+            border-color: rgb(148, 26, 26);
+            border-style: solid;
+            box-shadow: 0 2px 5px #0000007c inset;
+        }
+
+        .pwd > input:focus{
+            outline: -webkit-focus-ring-color auto 2px;
+            outline-color: -webkit-focus-ring-color;
+            outline-style: auto;
+            outline-width: 2px;
+        }
+
+        .login{
+            display: block;
+            width: 100px;
+            height: 20px;
+            margin: 10px 50px 5px 50px;
+            float: right;
+        }
+
+        .register{
+            display: block;
+            width: 100px;
+            height: 20px;
+            margin: 5px 50px;
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -55,18 +117,18 @@
     </div>
     <aside>
         <form action="/" method="POST">
-            <p class="usr_name">Username : <input style="width:200px; height:20px;" type="text" name="name" placeholder="닉네임을 입력하세여" required></p>
-            <p class="pwd">Password : <input style="width:200px; height:20px;" type="password" name="pwd" placeholder="비번" required></p>
-            <input style="width:100px; height:20px;" type="submit" value="Login">
+            <p class="usr_name"><input type="text" name="name" placeholder="닉네임" required></p>
+            <p class="pwd"><input type="password" name="pwd" placeholder="비밀번호" required></p>
+            <input class="login" type="submit" value="Login">
         </form>
         <form action="/register" method="GET">
-            <input style="width:100px; height:20px;" type="submit" value="Register">
+            <input class="register" type="submit" value="Register">
         </form>
-        <% if(alert == true) { %>
+        <!-- <% if(alert == true) { %> 
         <script text="type/javascript">
         alert('Non exist username or Wrong password')
         </script>
-    <% } %>
+        <% } %> -->
     </aside>
 </body>
 </html>
