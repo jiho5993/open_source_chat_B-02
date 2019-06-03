@@ -11,7 +11,7 @@
         }
         body {
             position: relative;
-            background-color: #E0ECF8;
+            background-color: rgb(36, 36, 36);
         }
         
         li{
@@ -37,24 +37,28 @@
         header {
             width: 100%;
             height: 70px;
+           
             background-color: #ffffff;
             box-shadow: 0 1px 10px #0000007c;
             float: left;
-            border-radius: 6px 6px 0px 0px;
+            
         }
         
         .logo { 
+
             display: inline-block;
             margin: 10px;
             font-size: 30px;
             padding: 10px;
             color: #ffffff;
             text-shadow: 0px 0px 3px #000000;
+            
         }
         /*profile design  */
         #wrap2{
             position: fixed;
             top: 0px;
+            
             float: left;
             width: 50%;
             height: 68px;
@@ -69,6 +73,7 @@
         }
 
         #avatar{
+           
             float: left;
             margin: 0px 4px;
         }
@@ -134,6 +139,10 @@
             border-style: solid;
             border-radius: 6px;
             margin: 1%;
+
+
+
+
         }
         /* chat & edit profile */
 
@@ -141,14 +150,40 @@
             position: fixed;
             left: 50%;
             box-sizing: content-box;
-            width: 49%;
-            min-height: 800px;
-            max-height: auto;
+            width: 50%;
+            height: 88%;
             margin: 70px 0px 0px 0px;
-            border: 3px;
-            border-style: solid;
             background-color: rgb(62, 64, 66);
         }
+
+        #wrap4 > aside{
+            position: relative;
+            box-sizing: content-box;
+            width: 100%;
+            height: auto;
+        }
+
+        .profile{
+            position: relative;
+            text-align: center;
+            font-size: 30px;
+
+        }
+        /* Signiture */
+
+        footer{
+
+            position: fixed;
+            z-index: 2000;
+            top: 96%;
+            display: block;
+            box-sizing: content-box;
+            width: 100%;
+            height: 4%;
+            background-color: rgb(182, 193, 204);
+            box-shadow: 0 1px 10px #0000007c;
+            font-size: 15px;
+            }
     </style>
 
 </head>
@@ -156,38 +191,32 @@
     <div id="wrap1">
         <header>
             <p class="logo">VA.chat</p>
-            <!-- <p id="logo_shadow">VA.chat</p> -->
         </header>
     </div>
     <div id="wrap2">
-            <img src="./img/avatar.png" alt="no avatar" id="avatar">
-            <p class="User_name">User Name: <%= username %></p>
-            <p class="User_name_shd">User Name: <%= username %> </p>
+            <img src="img/avatar.png" alt="no avatar" id="avatar">
+            <p class="User_name">User Name:</p>
+            <p class="User_name_shd">User Name:</p>
     </div>
     <div id="wrap3">
-            <ul>
-                <li>chatroom1</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                <li>chatroom2</li>
-                
-            </ul>
-        </div>
-    <div id="wrap4">
-
+        <ul>
+            <li><a href="./chat.html">chatroom1</a></li>
+            <li>chatroom2</li>
+            <li>chatroom3</li>
+            <li>chatroom4</li>
+            <li>chatroom5</li>
+            <li>chatroom6</li>
+            <li>chatroom7</li>
+            <li>chatroom8</li>
+            <li>chatroom9</li>
+            <li>chatroom10</li>        
+        </ul>
     </div>
+        
+    <div id="wrap4">
+        <aside><p class="profile">this Aside is for profile</p></aside>
+    </div>
+    <footer>@Made by MonoRaiL</footer>
     
     
 </body>
