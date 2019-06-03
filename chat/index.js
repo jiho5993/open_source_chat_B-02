@@ -7,6 +7,11 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(__dirname + '/public'))
+
+let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
+let a = 0
+
 // 라우팅 처리
 app.get('/', function(req, res) { // req 는 request, res 는 respond, 대부분은 여기서 관리함
     console.log('open index.html')
@@ -76,10 +81,29 @@ io.on('connection', function (socket) {
         }
         io.emit('chat', msg)
     })
-    socket.on('disconnect', function () {
-        socket.broadcast.emit('logout', socket.username)
-        console.log('user disconnected: ' + socket.username)
+
+    socket.on('joinRoom', function(num, name) {
+        socket.join(room[num], () => {
+            console.log(num)
+            console.log(name + ' join a ' + room[num])
+            io.to(room[num]).emit('joinRoom', num, name)
+        })
     })
+    socket.on('leaveRoom', function(num, name) {
+        socket.leave(room[num], () => {
+            console.log(name + ' leave a ' + room[num])
+            io.to(room[num]).emit('leaveRoom', num, name)
+        })
+    })
+    socket.on('chat message', function(num, name, msg) {
+        a = num
+        io.to(room[a]).emit('chat message', name, msg)
+    })
+
+    // socket.on('disconnect', function () {
+    //     socket.broadcast.emit('logout', socket.username)
+    //     console.log('user disconnected: ' + socket.username)
+    // })
 })
 connection.connect(function(err) {
     if(err) {
