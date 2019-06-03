@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <title>Register page</title>
+    <script src="/javascript/rgst.js"></script>
 </head>
 <body>
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" onsubmit="return mySubmit()">
         <p>Username : <input style="width:200px; height:20px;" type="text" name="name"></p>
         <p>Password : <input style="width:200px; height:20px;" type="password" name="pwd"></p>
         <p>Password Confirm : <input style="width:200px; height:20px;" type="password" name="pwdconf"></p>

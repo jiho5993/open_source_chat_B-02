@@ -2,40 +2,107 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Chatting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+      
+        body {
+            font: 13px Helvetica, Arial;
+        }
+      
+        form {
+            background: #000;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+      
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+      
+        form button {
+            width: 9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+        }
+      
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+      
+        #messages li {
+            padding: 5px 10px;
+        }
+      
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+    </style>
 </head>
 
 <body>
-<h1>Socket.io Chat</h1>
-<div id="chatlog"></div>
-<form>
-    <label for="msgForm">Message: </label>
-    <input type="text" id="msgForm">
-    <button type="submit">Send</button>
+<h1>Welcome! <%= username %></h1>
+<select name='chatRoom' id='chatRoom'>
+    <option value="Room1">Room1</option>
+    <option value="Room2">Room2</option>
+    <option value="Room3">Room3</option>
+    <option value="Room4">Room4</option>
+    <option value="Room5">Room5</option>
+    <option value="Room6">Room6</option>
+    <option value="Room7">Room7</option>
+    <option value="Room8">Room8</option>
+    <option value="Room9">Room9</option>
+    <option value="Room10">Room10</option>
+</select>
+<ul id="messages"></ul>
+<form action="">
+    <input id="m" autocomplete="off"/>
+    <button>Send</button>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
+<script>
     $(function () {
         var socket = io();
-        socket.emit("login", {
-            username: "<%= username%>"
-        });
-        socket.on("login", function (data) {
-            $("#chatlog").append("<div><strong>" + data + "</strong> has joined</div>");
-        });
-        socket.on("chat", function (data) {
-            $("#chatlog").append("<div><strong>" + data.username + "</strong> : " + data.msg + "</div>");
-        });
-        $("form").submit(function (e) {
-            e.preventDefault();
-            var $msgForm = $("#msgForm");
-            socket.emit("chat", { msg: $msgForm.val() });
-            $msgForm.val("");
-        });
+        const name = prompt('What your name')
+        // const name = '<%= username %>'
+        let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
+        let num = 0
+
+        socket.emit('joinRoom', num, name)
+
+        $('select').change(() => {
+            socket.emit('leaveRoom', num, name)
+            var roomNum = document.getElementById('chatRoom')
+            num = (roomNum.options[roomNum.selectedIndex].value).substring(4, 6) - 1
+            socket.emit('joinRoom', num, name)
+        })
+        $('form').submit(() => {
+            socket.emit('chat message', num, name, $('#m').val())
+            $('#m').val('')
+            return false
+        })
+        socket.on('chat message', function(name, msg) {
+            $('#messages').append($('<li>').text(name + '  :  ' + msg))
+        })
+        socket.on('leaveRoom', function(num, name) {
+            $('#messages').append($('<li>').text(name + ' leaved ' + room[num] + ':('))
+        })
+        socket.on('joinRoom', function(num, name) {
+            $('#messages').append($('<li>').text(name + ' joined ' + room[num] + ':)'))
+        })
     });
 </script>
 </body>
-
 </html>
