@@ -9,19 +9,21 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html, body {
+            height: 100%;
+        }
         body {
             position: relative;
             background-color: rgb(36, 36, 36);
         }
-        
+
         li{
             list-style: none;
         }
-
         a {text-decoration: none;}
-        
+
         /*logo design  */
-        
+
         #wrap1{
             position: fixed;
             top: 0px;
@@ -31,53 +33,49 @@
             padding: 0px;
             margin: 0px;
             float: left
-            
-        }
 
+        }
         header {
             width: 100%;
             height: 70px;
-           
+
             background-color: #ffffff;
             box-shadow: 0 1px 10px #0000007c;
             float: left;
-            
-        }
-        
-        .logo { 
 
+        }
+
+        .logo {
             display: inline-block;
             margin: 10px;
             font-size: 30px;
             padding: 10px;
             color: #ffffff;
             text-shadow: 0px 0px 3px #000000;
-            
+
         }
         /*profile design  */
         #wrap2{
             position: fixed;
             top: 0px;
-            
+
             float: left;
-            width: 50%;
+            width: 1000%;
             height: 68px;
             padding: 10px;
             margin: 70px 0px 0px 0px;
             border-radius: 0px 0px 6px 0px;
             background: linear-gradient( 115deg, rgb(255,0,0, 0.4) 1px, rgb(255,0,0,0) );
-            border-color: #808080; 
+            border-color: #808080;
             border-style: solid;
             background-color: #5e6063;
             z-index: 1000;
         }
-
         #avatar{
-           
+
             float: left;
             margin: 0px 4px;
         }
-
         .User_name{
             position: absolute;
             top: 10px;
@@ -89,7 +87,6 @@
             font-size: 20px;
             z-index: 10;
         }
-
         .User_name_shd {
             position: absolute;
             top: 13px;
@@ -101,18 +98,16 @@
             font-size: 20px;
             z-index: 5;
         }
-
         /* chat room list skeleton */
-
         #wrap3{
             position: relative;
             top: 138px;
             box-sizing: content-box;
-            width: 50%;
+            width: 100%;
+            height: 75%;
             background: rgb(128, 128, 128);
             z-index: 0;
         }
-
         #wrap3 > ul {
             position: absolute;
             box-sizing: border-box;
@@ -123,10 +118,11 @@
             display: block;
             top: 0px;
             width: 100%;
+            height: 100%;
             background: linear-gradient( 90deg, rgb(255,0,0, 0.15) 1%, rgb(255,0,0,0) );
             background-color: rgb(143, 153, 163);
+            overflow: auto;
         }
-
         #wrap3 > ul > li {
             font-size: 20px;
             display: block;
@@ -139,13 +135,8 @@
             border-style: solid;
             border-radius: 6px;
             margin: 1%;
-
-
-
-
         }
         /* chat & edit profile */
-
         #wrap4 {
             position: fixed;
             left: 50%;
@@ -155,24 +146,13 @@
             margin: 70px 0px 0px 0px;
             background-color: rgb(62, 64, 66);
         }
-
-        #wrap4 > aside{
-            position: relative;
-            box-sizing: content-box;
-            width: 100%;
-            height: auto;
-        }
-
         .profile{
             position: relative;
             text-align: center;
             font-size: 30px;
-
         }
         /* Signiture */
-
         footer{
-
             position: fixed;
             z-index: 2000;
             top: 96%;
@@ -183,7 +163,7 @@
             background-color: rgb(182, 193, 204);
             box-shadow: 0 1px 10px #0000007c;
             font-size: 15px;
-            }
+        }
     </style>
 
 </head>
@@ -194,27 +174,18 @@
         </header>
     </div>
     <div id="wrap2">
-            <img src="img/avatar.png" alt="no avatar" id="avatar">
-            <p class="User_name">User Name:</p>
-            <p class="User_name_shd">User Name:</p>
+        <img src="img/avatar.png" alt="no avatar" id="avatar"/>
+        <p class="User_name" id="username">User Name: <%= username %></p>
+        <p class="User_name_shd">User Name: <%= username %></p>
     </div>
     <div id="wrap3">
-        <ul>
-            <li><a href="./chat.html">chatroom1</a></li>
-            <li>chatroom2</li>
-            <li>chatroom3</li>
-            <li>chatroom4</li>
-            <li>chatroom5</li>
-            <li>chatroom6</li>
-            <li>chatroom7</li>
-            <li>chatroom8</li>
-            <li>chatroom9</li>
-            <li>chatroom10</li>        
-        </ul>
-    </div>
-        
-    <div id="wrap4">
-        <aside><p class="profile">this Aside is for profile</p></aside>
+        <script type="text/javascript" src="/javascript/getRoomNum.js"></script>
+        <form action="/chat" method="POST" id="crNum">
+            <input type="submit" value="Visit chatRoom!!" name="rn" id='1' onclick="alert('채팅방으로 이동합니다...')"/>
+<!--            <input type="submit" value="chatroom2" name="rn" id='2' onclick="return get(2)"/>-->
+<!--            <input type="submit" value="chatroom3" name="rn" id='3' onclick="return get(3)"/>-->
+<!--            <input type="submit" value="chatroom4" name="rn" id='4' onclick="return get(4)"/>-->
+        </form>
     </div>
     <footer>@Made by MonoRaiL</footer>
     
