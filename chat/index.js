@@ -15,6 +15,8 @@ let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room
 let a = 0
 let userName
 
+var room_no
+
 var login = require('./routes/login.js')
 app.use('/', login)
 
@@ -54,10 +56,10 @@ app.post('/register', function(req, res) {
 })
 
 app.post('/chat', function(req, res) {
-    // var rm = require('./public/javascript/getRoomNum')
+    var rm = req.body.rn
     // var n = rm.num
     // console.log('name', userName, 'num', n)
-    res.render('chat.html', { username: userName })
+    res.render('chat.html', { username: userName, room_no: rm } )
 })
 
 app.get('/renderImg', function (req, res) {
@@ -78,7 +80,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'qkrwlgh1004@@',
+    password : 'cho641164',
     database : 'my_db'
 })
 
