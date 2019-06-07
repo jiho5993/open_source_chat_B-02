@@ -135,7 +135,7 @@
 </head>
 
 <body>
-<form action="/chat" method="GET">
+<form action="/chat" method="GET" id="leave">
     <button type="submit">나가기</button>
 </form>
 <div id="chat">
@@ -157,17 +157,16 @@
         
         socket.emit('joinRoom', num, name1)
 
-        $('select').change(() => {
-            socket.emit('leaveRoom', num, name1)
-            var roomNum = document.getElementById('chatRoom')
-            num = (roomNum.options[roomNum.selectedIndex].value).substring(4, 6) - 1
-            socket.emit('joinRoom', num, name1)
-        })
+        
         
         $('#send_chat').submit(() => {
             socket.emit('chat message', num, name1, $('#m').val())
             $('#m').val('')
             return false
+        })
+
+        $('#leave').submit(() => {
+            socket.emit('leaveRoom', num, name1)
         })
 
         socket.on('chat message', function(name, msg) {

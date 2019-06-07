@@ -82,7 +82,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'qkrwlgh1004@@',
+    password : 'cho641164',
     database : 'my_db'
 })
 
@@ -118,6 +118,6 @@ connection.connect(function(err) {
     console.log('Success DB connection')
 })
 
-server.listen(3000, '172.17.65.223', function() {
+server.listen(3000, function() {
     console.log('Server on!')
 })
