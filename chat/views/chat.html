@@ -151,6 +151,7 @@
 <script>
     $(function () {
         var socket = io();
+        var ing = false;
         const name1 = '<%= username %>'
         let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
         let num = '<%= room_no %>'
@@ -186,6 +187,13 @@
         socket.on('joinRoom', function(num, name) {
             $('#messages').append($('<li class="inf">').text(name + ' joined ' + room[num] + ':)'))
         })
+        
+        window.onbeforeunload = function() {
+            if(!ing){
+                socket.emit('leaveRoom', num, name1);
+            }
+        }
+
     });
 </script>
 </body>
