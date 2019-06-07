@@ -13,20 +13,27 @@ app.use(express.static(__dirname + '/public'))
 
 let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
 let a = 0
-let userName
 
 var logined_user = new Array(100)
 
 var login = require('./routes/login.js')
+
+var cookieParser = require('cookie-parser');
+
+app.use(cookieParser('data'));
 app.use('/', login)
+
+
 
 app.post('/', function (req, res) {
     var name = req.body.name
     var pwd = req.body.pwd
-    userName = name
+   
 
     logined_user.push(name)
+
     var count=0
+
     for(var i=0; i<logined_user.length; i++) {
         if(logined_user[i] === name)
             count++
@@ -34,10 +41,14 @@ app.post('/', function (req, res) {
 
     var qr = `select * from user_info where username = ?`
     connection.query(qr, [name], function(error, results, fields) {
-        if(results.length == 0) res.render('index.html', {alert: true})
+        if(results.length == 0) {
+            res.render('index.html', {alert: true})
+            console.log('no-id')
+        }
         else {
             var db_pwd = results[0].password
-            if(pwd == db_pwd && count < 2) {
+            if(pwd == db_pwd) {
+                res.cookie('username', name);
                 console.log('open main.html')
                 res.render('main.html', { username: name })
             }
@@ -64,11 +75,14 @@ app.post('/register', function(req, res) {
 
 app.post('/chat', function(req, res) {
     var rm = req.body.rn
-    res.render('chat.html', { username: userName, room_no: rm } )
-})
+    var userName = req.cookies.username
+    console.log('this is test')
+    res.render( 'chat.html', { username: userName, room_no: rm } )
+ })
 
 app.get('/chat', function (req, res) {
-    res.render('main.html', { username: userName })
+    var userName = req.cookies.username
+    res.render( 'main.html', { username: userName } )
 })
 
 app.get('/renderImg', function (req, res) {
@@ -89,15 +103,23 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'qkrwlgh1004@@',
+    password : 'cho641164',
     database : 'my_db'
 })
 
 io.on('connection', function (socket) {
+
+
     socket.on('login', function (data) {
         console.log('client logged-in: ' + data.username)
         socket.username = data.username
         io.emit('login', data.username)
+    })
+
+    socket.on('data_send', function(name){
+        console.log('send user_name: ' + name)
+        socket.emit()
+
     })
 
     socket.on('joinRoom', function(num, name) {
@@ -106,17 +128,21 @@ io.on('connection', function (socket) {
             io.to(room[num]).emit('joinRoom', num, name)
         })
     })
+
     socket.on('leaveRoom', function(num, name) {
         socket.leave(room[num], () => {
             console.log(name + ' leave a ' + room[num])
             io.to(room[num]).emit('leaveRoom', num, name)
         })
     })
+
     socket.on('chat message', function(num, name, msg) {
         a = num
         io.to(room[a]).emit('chat message', name, msg)
     })
+
 })
+
 connection.connect(function(err) {
     if(err) {
         console.error('ERR : ' + err.stack)
@@ -125,6 +151,6 @@ connection.connect(function(err) {
     console.log('Success DB connection')
 })
 
-server.listen(3000, '172.17.65.223', function() {
+server.listen(3000, '172.17.66.39' ,function() {
     console.log('Server on!')
 })

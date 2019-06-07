@@ -46,6 +46,8 @@
             margin: 0 auto;
         }
         #chat {
+            position: relative;
+            top: 5%;
             box-sizing: content-box;
             width: 70%;
             height: 80%;
@@ -56,8 +58,8 @@
         }
         #chat > h1 {
             position: absolute;
-            top: 17px;
-            width: 70%;
+            top: -5%;
+            width: 100%;
             height: 5%;
             background: rgb(255,255,255);
             box-shadow: 0 4px 10px #0000007c;
@@ -146,36 +148,40 @@
         <button>Send</button>
     </form>
 </div>
+<script type="text/javascript">
+
+    
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+
     $(function () {
+
         var socket = io();
         var ing = false;
-        const name1 = '<%= username %>'
+        const name1 =  '<%= username %>'
         let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
         let num = '<%= room_no %>'
         
         socket.emit('joinRoom', num, name1)
 
-        
-        
         $('#send_chat').submit(() => {
             socket.emit('chat message', num, name1, $('#m').val())
             $('#m').val('')
             return false
         })
 
-        $('#leave').submit(() => {
-            socket.emit('leaveRoom', num, name1)
-        })
-
         socket.on('chat message', function(name, msg) {
             if(name1 != name) {
                 $('#messages').append($('<li class="opp">').text(name + '  :  ' + msg))
+                var objDiv = document.getElementById("messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
             else{
                 $('#messages').append($('<li class="me">').text(name + '  :  ' + msg))
+                var objDiv = document.getElementById("messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
             var objDiv = document.getElementById("messages");
             objDiv.scrollTop = objDiv.scrollHeight;
@@ -183,14 +189,19 @@
         })
         socket.on('leaveRoom', function(num, name) {
             $('#messages').append($('<li class="inf">').text(name + ' leaved ' + room[num] + ':('))
+            var objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
         })
         socket.on('joinRoom', function(num, name) {
             $('#messages').append($('<li class="inf">').text(name + ' joined ' + room[num] + ':)'))
+            var objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
         })
         
         window.onbeforeunload = function() {
             if(!ing){
                 socket.emit('leaveRoom', num, name1);
+                
             }
         }
 
