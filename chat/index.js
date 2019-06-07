@@ -57,9 +57,11 @@ app.post('/register', function(req, res) {
 
 app.post('/chat', function(req, res) {
     var rm = req.body.rn
-    // var n = rm.num
-    // console.log('name', userName, 'num', n)
     res.render('chat.html', { username: userName, room_no: rm } )
+})
+
+app.get('/chat', function (req, res) {
+    res.render('main.html', { username: userName })
 })
 
 app.get('/renderImg', function (req, res) {
@@ -80,7 +82,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'cho641164',
+    password : 'qkrwlgh1004@@',
     database : 'my_db'
 })
 
@@ -116,6 +118,6 @@ connection.connect(function(err) {
     console.log('Success DB connection')
 })
 
-server.listen(3000, function() {
+server.listen(3000, '172.17.65.223', function() {
     console.log('Server on!')
 })

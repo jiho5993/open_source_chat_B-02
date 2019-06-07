@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:-ms-overflow-style="http://www.w3.org/1999/xhtml">
 
 <head>
+    <meta charset="utf-8">
     <style>
         * {
             margin: 0;
@@ -134,23 +135,13 @@
 </head>
 
 <body>
-<h1>Welcome! <%= username %> <%= room_no%></h1>
-<select name='chatRoom' id='chatRoom'>
-    <option value="Room1">Room1</option>
-    <option value="Room2">Room2</option>
-    <option value="Room3">Room3</option>
-    <option value="Room4">Room4</option>
-    <option value="Room5">Room5</option>
-    <option value="Room6">Room6</option>
-    <option value="Room7">Room7</option>
-    <option value="Room8">Room8</option>
-    <option value="Room9">Room9</option>
-    <option value="Room10">Room10</option>
-</select>
+<form action="/chat" method="GET">
+    <button type="submit">나가기</button>
+</form>
 <div id="chat">
     <h1>VA.chat!</h1>
     <ul id="messages" -ms-overflow-style: none;></ul>
-    <form action="">
+    <form action="/chat" id="send_chat">
         <input id="m" autocomplete="off"/>
         <button>Send</button>
     </form>
@@ -173,7 +164,7 @@
             socket.emit('joinRoom', num, name1)
         })
         
-        $('form').submit(() => {
+        $('#send_chat').submit(() => {
             socket.emit('chat message', num, name1, $('#m').val())
             $('#m').val('')
             return false
