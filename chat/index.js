@@ -15,7 +15,7 @@ let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room
 let a = 0
 let userName
 
-var room_no
+var logined_user = new Array(100)
 
 var login = require('./routes/login.js')
 app.use('/', login)
@@ -25,12 +25,19 @@ app.post('/', function (req, res) {
     var pwd = req.body.pwd
     userName = name
 
+    logined_user.push(name)
+    var count=0
+    for(var i=0; i<logined_user.length; i++) {
+        if(logined_user[i] === name)
+            count++
+    }
+
     var qr = `select * from user_info where username = ?`
     connection.query(qr, [name], function(error, results, fields) {
         if(results.length == 0) res.render('index.html', {alert: true})
         else {
             var db_pwd = results[0].password
-            if(pwd == db_pwd) {
+            if(pwd == db_pwd && count < 2) {
                 console.log('open main.html')
                 res.render('main.html', { username: name })
             }
@@ -82,7 +89,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'cho641164',
+    password : 'qkrwlgh1004@@',
     database : 'my_db'
 })
 
@@ -118,6 +125,6 @@ connection.connect(function(err) {
     console.log('Success DB connection')
 })
 
-server.listen(3000, function() {
+server.listen(3000, '172.17.65.223', function() {
     console.log('Server on!')
 })
