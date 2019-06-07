@@ -60,6 +60,16 @@ app.post('/chat', function(req, res) {
     res.render('chat.html', { username: userName })
 })
 
+app.get('/renderImg', function (req, res) {
+    fs.readFile('./views/img/avatar.png', function (err, data) {
+        if(err) console.log('img load ERR!!')
+        else {
+            res.writeHead(200, { 'Content-Type': 'text/html' })
+            res.end(data)
+        }
+    })
+})
+
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.engine('html', require('ejs').renderFile)
