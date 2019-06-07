@@ -95,13 +95,13 @@
         .me{
 
             display: block;
-            box-sizing: border-box;
+            box-sizing: content-box;
             border: 5px rgb(255,255,255);
             margin: 10px 10px 10px auto;
             border-radius: 6px;
             padding: 10px;
             width: 150px;
-            min-height: 40px;
+            min-height: 15px;
             max-height: auto;
             white-space: normal;
             word-break: normal;
@@ -113,13 +113,13 @@
 
 
             display: block;
-            box-sizing: border-box;
+            box-sizing: content-box;
             border: 5px rgb(221, 221, 221);
             margin: 10px auto 10px 10px;
             border-radius: 6px;
             padding: 10px;
             width: 150px;
-            min-height: 40px;
+            min-height: 15px;
             max-height: auto;
             white-space: normal;
             word-break: normal;
@@ -134,7 +134,7 @@
 </head>
 
 <body>
-<h1>Welcome! <%= username %></h1>
+<h1>Welcome! <%= username %> <%= room_no%></h1>
 <select name='chatRoom' id='chatRoom'>
     <option value="Room1">Room1</option>
     <option value="Room2">Room2</option>
@@ -162,19 +162,23 @@
         var socket = io();
         const name1 = '<%= username %>'
         let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
-        let num = 0
+        let num = '<%= room_no %>'
+        
         socket.emit('joinRoom', num, name1)
+
         $('select').change(() => {
             socket.emit('leaveRoom', num, name1)
             var roomNum = document.getElementById('chatRoom')
             num = (roomNum.options[roomNum.selectedIndex].value).substring(4, 6) - 1
             socket.emit('joinRoom', num, name1)
         })
+        
         $('form').submit(() => {
             socket.emit('chat message', num, name1, $('#m').val())
             $('#m').val('')
             return false
         })
+
         socket.on('chat message', function(name, msg) {
             if(name1 != name) {
                 $('#messages').append($('<li class="opp">').text(name + '  :  ' + msg))
