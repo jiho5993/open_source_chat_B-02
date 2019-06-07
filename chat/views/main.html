@@ -105,12 +105,13 @@
             top: 138px;
             box-sizing: content-box;
             width: 100%;
-            height: 75%;
-            background: rgb(128, 128, 128);
+            height: 80%;
+            background: linear-gradient( 90deg, rgb(255,0,0, 0.2) , rgb(255,0,0,0) 60%);
+            background-color: rgb(54,54,54);
             z-index: 0;
         }
         #wrap3 > ul {
-            position: absolute;
+            margin: 0 auto;
             box-sizing: border-box;
             border: 3px;
             border-radius: 0px 6px 6px 6px;
@@ -118,13 +119,13 @@
             border-color: rgb(97, 103, 109);
             display: block;
             top: 0px;
-            width: 100%;
+            width: 70%;
             height: 100%;
             background: linear-gradient( 90deg, rgb(255,0,0, 0.15) 1%, rgb(255,0,0,0) );
             background-color: rgb(143, 153, 163);
             overflow: auto;
         }
-        #wrap3 > ul > li {
+        #wrap3 > ul > form >li {
             font-size: 20px;
             display: block;
             width: 98%;
@@ -135,7 +136,15 @@
             border-color: #000000;
             border-style: solid;
             border-radius: 6px;
-            margin: 1%;
+            margin: 1% auto;
+        }
+
+        #wrap3 > ul > form > li > button {
+            float: right;
+            margin: 10px;
+            box-sizing: content-box;
+            width: 50px;
+            height: 25px;
         }
         /* chat & edit profile */
         #wrap4 {
@@ -153,7 +162,7 @@
             font-size: 30px;
         }
         /* Signiture */
-        footer{
+        /* footer{ 
             position: fixed;
             z-index: 2000;
             top: 96%;
@@ -164,7 +173,7 @@
             background-color: rgb(182, 193, 204);
             box-shadow: 0 1px 10px #0000007c;
             font-size: 15px;
-        }
+        }*/
     </style>
 
 </head>
@@ -180,14 +189,41 @@
         <p class="User_name_shd">User Name: <%= username %></p>
     </div>
     <div id="wrap3">
-        <script type="text/javascript" src="/javascript/getRoomNum.js"></script>
-        <form action="/chat
-        " method="POST" id="crNum">
-            <input type="submit" value="0" name="rn" id='1' onclick="alert('채팅방으로 이동합니다...')"/>
-            <input type="submit" value="1" name="rn" id='2' onclick="alert('채팅방으로 이동합니다...')"/>
-<!--            <input type="submit" value="chatroom3" name="rn" id='3' onclick="return get(3)"/>-->
-<!--            <input type="submit" value="chatroom4" name="rn" id='4' onclick="return get(4)"/>-->
-        </form>
+        <ul>
+            <script type="text/javascript" src="/javascript/getRoomNum.js"></script>
+            <form action="/chat" method="POST" id="crNum">
+                <li> chatroom1
+                    <button type="submit" value="0" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom2
+                    <button type="submit" value="1" name="rn"  onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom3
+                        <button type="submit" value="2" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom4
+                        <button type="submit" value="3" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom5
+                        <button type="submit" value="4" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom6
+                        <button type="submit" value="5" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom7
+                        <button type="submit" value="6" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom8
+                        <button type="submit" value="7" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom9
+                        <button type="submit" value="8" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+                <li> chatroom10
+                        <button type="submit" value="9" name="rn" onclick="alert('채팅방으로 이동합니다...')">입장</button>
+                </li>
+            </form>
+        </ul>
     </div>
     <footer>@Made by MonoRaiL</footer>
     
