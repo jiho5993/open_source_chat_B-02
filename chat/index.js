@@ -14,8 +14,6 @@ app.use(express.static(__dirname + '/public'))
 let room = ['room1', 'room2', 'room3', 'room4', 'room5', 'room6', 'room7', 'room8', 'room9', 'room10']
 let a = 0
 
-var logined_user = new Array(100)
-
 var login = require('./routes/login.js')
 
 var cookieParser = require('cookie-parser');
@@ -23,36 +21,42 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser('data'));
 app.use('/', login)
 
-
+app.get('/main', function (req, res) {
+    console.log(req.cookies.username)
+    var exit_sq = `update user_info set state = 0 where username = ?`
+    connection.query(exit_sq, [req.cookies.username], function (err, result, fld) {
+        console.log(result)
+    })
+    res.render('index.html', {alert: false})
+})
 
 app.post('/', function (req, res) {
     var name = req.body.name
     var pwd = req.body.pwd
-   
-
-    logined_user.push(name)
-
-    var count=0
-
-    for(var i=0; i<logined_user.length; i++) {
-        if(logined_user[i] === name)
-            count++
-    }
 
     var qr = `select * from user_info where username = ?`
     connection.query(qr, [name], function(error, results, fields) {
-        if(results.length == 0) {
+        if(results.length === 0) {
             res.render('index.html', {alert: true})
             console.log('no-id')
         }
         else {
             var db_pwd = results[0].password
-            if(pwd == db_pwd) {
-                res.cookie('username', name);
-                console.log('open main.html')
-                res.render('main.html', { username: name })
-            }
-            else res.render('index.html', { alert: true })
+            var chk_qr = `select * from user_info where username = ?`
+            connection.query(chk_qr, [name], function (err, result, fld) {
+                if(!result[0].state) {
+                    if(pwd === db_pwd) {
+                        var update_qr = `update user_info set state = 1 where username = ?`
+                        connection.query(update_qr, [name], function (err, result, fld) {
+                            console.log(result)
+                        })
+                        res.cookie('username', name);
+                        console.log('open main.html')
+                        res.render('main.html', { username: name })
+                    }
+                    else res.render('index.html', { alert: true })
+                } else res.render('index.html', { alert: true })
+            })
         }
     })
 })
@@ -76,7 +80,7 @@ app.post('/register', function(req, res) {
 app.post('/chat', function(req, res) {
     var rm = req.body.rn
     var userName = req.cookies.username
-    console.log('this is test')
+
     res.render( 'chat.html', { username: userName, room_no: rm } )
  })
 
@@ -103,7 +107,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'cho641164',
+    password : 'qkrwlgh1004@@',
     database : 'my_db'
 })
 
@@ -151,6 +155,6 @@ connection.connect(function(err) {
     console.log('Success DB connection')
 })
 
-server.listen(3000, '172.17.66.39' ,function() {
+server.listen(3000, '192.168.2.2', function() {
     console.log('Server on!')
 })

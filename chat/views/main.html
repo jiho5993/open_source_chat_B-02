@@ -179,6 +179,9 @@
     </div>
     <div id="wrap3">
         <ul>
+            <form action="/main" method="GET">
+                <button type="submit" value="<%= username %>" name="logout">로그아웃</button>
+            </form>
             <form action="/chat" method="POST" id="crNum">
                 <li> chatroom1
                     <button type="submit" value="0" name="rn" >입장</button>
