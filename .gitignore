@@ -2,6 +2,6 @@
 \.idea/
 
 chat/\.DS_Store
-chat/\.node_modules
+node_modules/
 
 \.DS_Store
