@@ -69,7 +69,9 @@ app.post('/register', function(req, res) {
     var pwd = req.body.pwd
     var pwdconf = req.body.pwdconf
 
-    var qr = `insert into user_info values (?, ?)`
+    console.log(name + " " + pwd);
+
+    var qr = `insert into user_info values (?, ?, 0)`
     connection.query(qr, [name, pwd], function(error, result, fields) {
         console.log(result)
     })
@@ -107,7 +109,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     post : 3306,
-    password : 'qkrwlgh1004@@',
+    password : '1234',
     database : 'my_db'
 })
 
