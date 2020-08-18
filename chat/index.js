@@ -1,5 +1,5 @@
 var express = require('express');
-var mysql = require('mysql');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var fs = require('fs')
@@ -8,6 +8,9 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+const PORT = process.env.PORT || 3000;
+
+app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'))
 
@@ -22,61 +25,16 @@ app.use(cookieParser('data'));
 app.use('/', login)
 
 app.get('/main', function (req, res) {
-    console.log(req.cookies.username)
-    var exit_sq = `update user_info set state = 0 where username = ?`
-    connection.query(exit_sq, [req.cookies.username], function (err, result, fld) {
-        console.log(result)
-    })
-    res.render('index.html', {alert: false})
+    console.log(req.cookies.username);
+    res.render('index.html', {alert: false});
 })
 
 app.post('/', function (req, res) {
-    var name = req.body.name
-    var pwd = req.body.pwd
+    var name = req.body.name;
+    console.log(`${name} is login!`);
 
-    var qr = `select * from user_info where username = ?`
-    connection.query(qr, [name], function(error, results, fields) {
-        if(results.length === 0) {
-            res.render('index.html', {alert: true})
-            console.log('no-id')
-        }
-        else {
-            var db_pwd = results[0].password
-            var chk_qr = `select * from user_info where username = ?`
-            connection.query(chk_qr, [name], function (err, result, fld) {
-                if(!result[0].state) {
-                    if(pwd === db_pwd) {
-                        var update_qr = `update user_info set state = 1 where username = ?`
-                        connection.query(update_qr, [name], function (err, result, fld) {
-                            console.log(result)
-                        })
-                        res.cookie('username', name);
-                        console.log('open main.html')
-                        res.render('main.html', { username: name })
-                    }
-                    else res.render('index.html', { alert: true })
-                } else res.render('index.html', { alert: true })
-            })
-        }
-    })
-})
-
-var register = require('./routes/register.js')
-app.use('/register', register)
-
-app.post('/register', function(req, res) {
-    var name = req.body.name
-    var pwd = req.body.pwd
-    var pwdconf = req.body.pwdconf
-
-    console.log(name + " " + pwd);
-
-    var qr = `insert into user_info values (?, ?, 0)`
-    connection.query(qr, [name, pwd], function(error, result, fields) {
-        console.log(result)
-    })
-
-    res.redirect('/')
+    res.cookie('username', name);
+    res.render('main.html', { username: name });
 })
 
 app.post('/chat', function(req, res) {
@@ -104,14 +62,6 @@ app.get('/renderImg', function (req, res) {
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.engine('html', require('ejs').renderFile)
-
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    post : 3306,
-    password : '1234',
-    database : 'my_db'
-})
 
 io.on('connection', function (socket) {
 
@@ -149,14 +99,6 @@ io.on('connection', function (socket) {
 
 })
 
-connection.connect(function(err) {
-    if(err) {
-        console.error('ERR : ' + err.stack)
-        return;
-    }
-    console.log('Success DB connection')
-})
-
-server.listen(3000, function() {
-    console.log('Server on!')
+server.listen(PORT, function() {
+    console.log(`Server on http://localhost:${PORT}`);
 })

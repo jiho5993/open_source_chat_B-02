@@ -10,7 +10,7 @@
            
            background: linear-gradient( 90deg, rgb(255,0,0, 0.2) , rgb(255,0,0,0) 60%);
            background-color: rgb(54,54,54);
-       }
+        }
         header {
             position: fixed;
             top: 0%;
@@ -39,22 +39,22 @@
             position: relative;
 
             box-sizing: border-box;
-            width: 300px;
-            height: 400px;
+            width: 50%;
+            height: 200px;
             background-color: rgb(255, 255, 255);
-            margin: 200px auto;
+            margin: 13% auto;
             box-shadow: 0 2px 10px #0000007c;
 
         }
-        .usr_name{
-            margin: 0px auto;
+        .usr_name {
+            margin: 0 auto;
             padding: 50px 0px 0px 0px;
 
         }
         .usr_name > input {
             display: block;
-            margin: 0px auto;
-            width: 200px;
+            margin: 0 auto;
+            width: 90%;
             height: 30px;
             border-width: 0px 0px 3px 0px;
             border-color: rgb(148, 26, 26);
@@ -69,43 +69,12 @@
             outline-style: auto;
             outline-width: 2px;
         }
-        
-        .pwd{
-            margin: 0px auto;
-            padding: 20px 0px 0px 0px;
-
-        }
-        .pwd > input {
-            display: block;
-            margin: 10px auto;
-            width: 200px;
-            height: 30px;
-            border-width: 0px 0px 3px 0px;
-            border-color: rgb(148, 26, 26);
-            border-style: solid;
-            box-shadow: 0 2px 5px #0000007c inset;
-        }
-
-        .pwd > input:focus{
-            outline: -webkit-focus-ring-color auto 2px;
-            outline-color: -webkit-focus-ring-color;
-            outline-style: auto;
-            outline-width: 2px;
-        }
 
         .login{
             display: block;
             width: 100px;
-            height: 20px;
+            height: 30px;
             margin: 10px 50px 5px 50px;
-            float: right;
-        }
-
-        .register{
-            display: block;
-            width: 100px;
-            height: 20px;
-            margin: 5px 50px;
             float: right;
         }
     </style>
@@ -119,17 +88,8 @@
     <aside>
         <form action="/" method="POST">
             <p class="usr_name"><input type="text" name="name" placeholder="닉네임" required></p>
-            <p class="pwd"><input type="password" name="pwd" placeholder="비밀번호" required></p>
-            <input class="login" type="submit" value="Login">
+            <input class="login" type="submit" value="입장">
         </form>
-        <form action="/register" method="GET">
-            <input class="register" type="submit" value="Register">
-        </form>
-        <% if(alert == true) { %> 
-        <script text="type/javascript">
-            alert('잘못된 로그인 정보이거나, 이미 로그인 되어있는 상태입니다.')
-        </script>
-        <% } %>
     </aside>
 </body>
 </html>
